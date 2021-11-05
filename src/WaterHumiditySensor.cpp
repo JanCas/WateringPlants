@@ -25,7 +25,7 @@ void WaterHumiditySensor::calibrate() {
         delay(100);
     }
 
-    Serial.print("Please insert the Sensor into water \n");
+    Serial.println("Please insert the Sensor into water");
     Serial.print("30 seonds until the next reading begins");
     delay(30000);
 
@@ -49,13 +49,6 @@ float WaterHumiditySensor::pct_between_bounds(int val){
     float val_f = (float) val;
 
     return ((val_f - low_bound_f) * 100) / (high_bound_f - low_bound_f);
-}
-
-void WaterHumiditySensor::calibrate(int low, int high){
-    low_bound = low;
-    high_bound = high;
-
-    Serial.println("LOW: " + low_bound + " HIGH: " + high_bound);
 }
 
 int WaterHumiditySensor::read_current(){

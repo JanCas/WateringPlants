@@ -1,3 +1,6 @@
+#ifndef WATERHUMIDITYSENSOR_H_
+#define WATERHUMIDITYSENSOR_H_
+
 #include "Sensor.hpp"
 
 class WaterHumiditySensor: public Sensor{
@@ -11,3 +14,5 @@ class WaterHumiditySensor: public Sensor{
         int low_bound;
         int high_bound;
 };
+
+#endif
