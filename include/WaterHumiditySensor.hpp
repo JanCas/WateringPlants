@@ -1,18 +1,21 @@
 #ifndef WATERHUMIDITYSENSOR_H_
 #define WATERHUMIDITYSENSOR_H_
 
-#include "Sensor.hpp"
-
-class WaterHumiditySensor: public Sensor{
+/**
+ * @brief 
+ * The water sensor uses an inverse mapping for the humidity -> wet (low reading) - dry (high reading)
+ */
+class WaterHumiditySensor{
     public:
-        WaterHumiditySensor(int pinNumber);
+        WaterHumiditySensor(int pin_number);
         void calibrate(int low, int high);
         void calibrate();
-        int read_current();
+        unsigned int read_current();
         float pct_between_bounds(int val);
     private:
-        int low_bound;
-        int high_bound;
+        int water_moisture;
+        int air_moisture;
+        int pin_number;
 };
 
 #endif
