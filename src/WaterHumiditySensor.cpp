@@ -18,28 +18,28 @@ void WaterHumiditySensor::calibrate() {
 
     Serial.println("Leave the sensor in the air will be taking reading for the next 2 minutes");
 
-    // take 20 readings .1 seconds apart to find the humidity of the surrounding air
+    // take 20 readings 1 second apart to find the humidity of the surrounding air
     for (int i = 0; i < 20; i++)
     {
         int currentReading = read_current();
         if (currentReading > air_moisture){
             air_moisture = currentReading;
         }
-        delay(100);
+        delay(1000);
     }
 
     Serial.println("Please insert the Sensor into water");
     Serial.print("30 seonds until the next reading begins");
     delay(30000);
 
-    // take 20 readings .1 seconds apart to find the humidity of water
+    // take 20 readings 1 second apart to find the humidity of water
     for (int i = 0; i < 20; i++)
     {
         int currentReading = read_current();
         if (currentReading < water_moisture){
             water_moisture = currentReading;
         }
-        delay(100);
+        delay(1000);
     }
 
     // calibrate the sensor
