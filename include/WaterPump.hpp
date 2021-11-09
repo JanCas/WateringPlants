@@ -3,9 +3,12 @@
 
 class WaterPump{
     private:
-        int pin_number;
+        int power_pin;
+        int direction_pin;
+        static const HIGH_POWER = 255;
+        static const LOW_POWER = 0;
     public:
-        WaterPump(int pin_number);
+        WaterPump(int power_pin, int direction_pin);
         void turn_on();
         void shut_off();        
 };
