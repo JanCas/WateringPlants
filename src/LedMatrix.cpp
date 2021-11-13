@@ -5,6 +5,8 @@ LedMatrix::LedMatrix(int data_in_pin, int clk_pin, int load_pin) {
     this->clk_pin = clk_pin;
     this->load_pin = load_pin;
     lc = LedControl(data_in_pin, clk_pin, load_pin, 1);
+
+    init();
 }
 
 void LedMatrix::shutdown(){
@@ -16,6 +18,7 @@ void LedMatrix::wake_up() {
 }
 
 void LedMatrix::set_brightness(int intensity){
+    this->intensity = intensity;
     lc.setIntensity(0,intensity);
 }
 
@@ -37,14 +40,37 @@ void LedMatrix::display_integer(int number){
 
     int number_as_array[number_length];
 
-    for (size_t i = 0; i < number_length; i++)
+    for (int i = 0; i < number_length; i++)
     {
         number_as_array[i] = number % 10;
         number /= 10;
     }
 
-    for (size_t i = 0; i < number_length; i++)
+    for (int i = 0; i < number_length; i++)
     {
         lc.setDigit(0, i, (byte) number_as_array[i], false);
     }
+}
+
+void LedMatrix::display_string(String str){
+    int str_length = str.length();
+    if (str_length > 7){
+        str = "INVALEN";
+    }
+
+    Serial.println("I was here");
+    for (int i = 0; i < str.length(); i++) {
+        Serial.print(str[i]);
+        lc.setChar(0, i, str[i], false);
+    }     
+}
+
+void LedMatrix::init(){
+    clear();
+    wake_up();
+    set_brightness(intensity);
+    //Serial.println("displaying 999999");
+    //display_integer(999999);
+    //delay(1000);
+    //clear();
 }

@@ -18,6 +18,7 @@ void WaterHumiditySensor::calibrate() {
 
     Serial.println("Leave the sensor in the air will be taking reading for the next 2 minutes");
 
+
     // take 20 readings 1 second apart to find the humidity of the surrounding air
     for (int i = 0; i < 20; i++)
     {

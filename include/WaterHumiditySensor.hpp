@@ -1,5 +1,7 @@
 #ifndef WATERHUMIDITYSENSOR_H_
 #define WATERHUMIDITYSENSOR_H_
+#include "LedMatrix.hpp"
+
 
 /**
  * @brief 

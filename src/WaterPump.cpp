@@ -18,3 +18,7 @@ void WaterPump::turn_on() {
 void WaterPump::shut_off() {
     analogWrite(power_pin, LOW_POWER);    
 }
+
+void WaterPump::set_power(int power){
+    this->power = power;
+}
