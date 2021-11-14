@@ -12,7 +12,17 @@ Plant::Plant(int min_moisture_pct, int max_moisture_pct, WaterPump *wp, LedMatri
 
 void Plant::step() {
     int water_moisture_pct = wh->pct_between_bounds(wh->read_current());
+    button_val bv = ab->read_button();
+    Serial.println(ab->to_string(bv));
+    if (bv == SELECT){
+        Serial.println("I was here");
+        config_views_show();
+    }
+
+
     lm->clear();
+    lm->display_integer(100);
+/*
     lm->display_integer(water_moisture_pct);
 
     if (water_moisture_pct < min_moisture_pct){
@@ -24,6 +34,7 @@ void Plant::step() {
         }
         wp->shut_off();
     }
+    */
 }
 
 void Plant::init(){
@@ -57,7 +68,9 @@ int Plant::pct_validator(int pct){
 }
 
 void Plant::config_views_show(){
+    Serial.println("I WAS HERE 2");
     while(true){
+        lm->clear();
         button_val bv = config_views[index_of_config_view].view_function(ab, config_numbers[index_of_config_view]);
         if (bv == SELECT){
             break;

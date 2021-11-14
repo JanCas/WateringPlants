@@ -27,11 +27,6 @@ int num = 55;
 ConfigView cv("H PC", &lm);
 
 Plant plant(50, 70, &wp, &lm, &wh, &ab);
-int i = 0;
-
-void func(int &j){
-  j++;
-}
 
 void setup() {
   // put your setup code here, to run once:
@@ -43,9 +38,7 @@ void setup() {
   plant.set_display_brightness(15);
   Serial.println("Wait over");
   */
-  button_val bv = cv.view_function(&ab, num);
-  Serial.println(ab.to_string(bv));
-  Serial.println(num);
+
 }
 
 
@@ -53,5 +46,6 @@ void loop() {
   // put your main code here, to run repeatedly:
   //plant.step();
   //Serial.println(ab.to_string(ab.read_button()));
-  delay(100);
+  plant.step();
+  delay(500);
 }
