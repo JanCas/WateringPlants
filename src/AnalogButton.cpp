@@ -23,4 +23,18 @@ button_val AnalogButton::read_button() {
     if (val > 700 && val < 800){
         return SELECT;
     }
+        
+    return NONE;
+
+}
+
+String AnalogButton::to_string(button_val val){
+    return (const char* []){
+        "LEFT",
+        "RIGHT",
+        "TOP",
+        "BOTTOM",
+        "SELECT",
+        "NONE",
+    }[val];
 }

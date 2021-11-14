@@ -12,7 +12,7 @@ WaterPump::WaterPump(int power_pin, int direction_pin) {
 }
 
 void WaterPump::turn_on() {
-    analogWrite(power_pin, HIGH_POWER);
+    analogWrite(power_pin, power);
 }
 
 void WaterPump::shut_off() {
@@ -20,5 +20,15 @@ void WaterPump::shut_off() {
 }
 
 void WaterPump::set_power(int power){
+    if (power > HIGH_POWER){
+        power = HIGH_POWER;
+    }
+    if (power < LOW_POWER){
+        power = LOW_POWER;
+    }
     this->power = power;
+}
+
+int WaterPump::get_power(){
+    return power;
 }

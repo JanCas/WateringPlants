@@ -13,7 +13,8 @@ class WaterPump{
         WaterPump(int power_pin, int direction_pin);
         void turn_on();
         void shut_off();
-        void set_power(int power);        
+        void set_power(int power);    
+        int get_power();    
 };
 
 #endif

@@ -57,20 +57,16 @@ void LedMatrix::display_string(String str){
     if (str_length > 7){
         str = "INVALEN";
     }
-
-    Serial.println("I was here");
-    for (int i = 0; i < str.length(); i++) {
-        Serial.print(str[i]);
-        lc.setChar(0, i, str[i], false);
-    }     
+    
+    int str_index = 0;
+    for (int i = 7; i > (7-str.length()); i--)
+    {
+        lc.setChar(0, i, str[str_index++], false);
+    }
 }
 
 void LedMatrix::init(){
     clear();
     wake_up();
     set_brightness(intensity);
-    //Serial.println("displaying 999999");
-    //display_integer(999999);
-    //delay(1000);
-    //clear();
 }

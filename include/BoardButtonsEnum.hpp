@@ -2,6 +2,6 @@
 #define DB242135_FBB6_453B_AAAC_98A21F3F64B5
 #include "Arduino.h"
 
-enum button_val {LEFT, RIGHT, TOP, BOTTOM, SELECT};
+enum button_val {LEFT, RIGHT, TOP, BOTTOM, SELECT, NONE};
 
 #endif /* DB242135_FBB6_453B_AAAC_98A21F3F64B5 */

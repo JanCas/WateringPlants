@@ -9,6 +9,7 @@ class AnalogButton{
     public:
         AnalogButton(int pin_number);
         button_val read_button();
+        static String to_string(button_val val);
 };
 
 #endif /* B84C562A_05BE_48AB_B8D9_04BA5D9EBDBA */
