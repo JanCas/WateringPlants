@@ -12,10 +12,11 @@ Plant::Plant(int min_moisture_pct, int max_moisture_pct, WaterPump *wp, LedMatri
 
 void Plant::step() {
     int water_moisture_pct = wh->pct_between_bounds(wh->read_current());
+
     button_val bv = ab->read_button();
-    Serial.println(ab->to_string(bv));
+    // Serial.println(ab->to_string(bv));
     if (bv == SELECT){
-        Serial.println("I was here");
+        // Serial.println("I was here");
         config_views_show();
     }
 
@@ -38,10 +39,11 @@ void Plant::step() {
 }
 
 void Plant::init(){
-    Serial.println("Calibrating the water Sensor");
-    delay(10000);
-    wh->calibrate();
-    wp->set_power(70);
+    // Serial.println("Calibrating the water Sensor");
+    set_config_views();
+    //delay(10000);
+    //wh->calibrate();
+    //wp->set_power(70);
 }
 
 void Plant::set_motor_power(int power){
@@ -68,7 +70,7 @@ int Plant::pct_validator(int pct){
 }
 
 void Plant::config_views_show(){
-    Serial.println("I WAS HERE 2");
+    // Serial.println("I WAS HERE 2");
     while(true){
         lm->clear();
         button_val bv = config_views[index_of_config_view].view_function(ab, config_numbers[index_of_config_view]);

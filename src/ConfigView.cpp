@@ -6,12 +6,12 @@ ConfigView::ConfigView(String identifier, LedMatrix *lm){
 }
 
 button_val ConfigView::view_function(AnalogButton *ab, int &number){
-    Serial.println("I was here 3");
+    // Serial.println("I was here 3");
     lm->display_string(identifier);
     lm->display_integer(number);
 
-    Serial.println(identifier);
-    Serial.println(number);
+    // Serial.println(identifier);
+    // Serial.println(number);
 
     button_val ab_reading = ab->read_button();
     delay(500);

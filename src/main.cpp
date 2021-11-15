@@ -5,6 +5,7 @@
 #include "WaterPump.hpp"
 #include "Plant.hpp"
 #include "ConfigView.hpp"
+#include "avr8-stub.h"
 
 
 
@@ -30,15 +31,16 @@ Plant plant(50, 70, &wp, &lm, &wh, &ab);
 
 void setup() {
   // put your setup code here, to run once:
-  Serial.begin(9600);
-/*
+  debug_init();
+  //Serial.begin(9600);
+
   plant.init();
+  /*
   Serial.println("Insert the Sensor into the Plant -> starting readings and water in one minure");
   delay(60000);
   plant.set_display_brightness(15);
   Serial.println("Wait over");
-  */
-
+*/
 }
 
 
