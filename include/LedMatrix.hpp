@@ -69,6 +69,8 @@ class LedMatrix{
          */
         void init();
 
+        void display_char(char c);
+
     private:
         int data_in_pin;
         int length_of_number(int number);

@@ -17,6 +17,7 @@ class ConfigView{
     public:
         button_val view_function(AnalogButton *ab, int &number);
         ConfigView(String identifier, LedMatrix *lm);
+        ConfigView(){};
 };
 
 #endif /* BA223B3F_3C6D_4691_B560_892642543191 */

@@ -54,7 +54,7 @@ void LedMatrix::display_integer(int number){
 
 void LedMatrix::display_string(String str){
     int str_length = str.length();
-    if (str_length > 7){
+    if (str_length >= 7){
         str = "INVALEN";
     }
     
@@ -69,4 +69,8 @@ void LedMatrix::init(){
     clear();
     wake_up();
     set_brightness(intensity);
+}
+
+void LedMatrix::display_char(char c){
+    lc.setDigit(0, 0, (byte) c, false);
 }

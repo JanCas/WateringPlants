@@ -1,12 +1,20 @@
 #ifndef A2EEDDC9_441C_40E6_807C_55DEE2123DAB
 #define A2EEDDC9_441C_40E6_807C_55DEE2123DAB
 
+#define MAX_MOISTURE_IND 0
+#define MIN_MOISTURE_IND 1
+
 #include <Vector.h>
 #include "WaterPump.hpp"
 #include "LedMatrix.hpp"
 #include "WaterHumiditySensor.hpp"
 #include "ConfigView.hpp"
 #include "AnalogButton.hpp"
+
+typedef struct{
+    ConfigView cv;
+    int value;
+} Constant;
 
 /**
  * @brief Parent class all things concerning Plant does all the config and all the humidity checking
@@ -17,12 +25,16 @@ class Plant{
         int min_moisture_pct;
         int max_moisture_pct;
 
+        Constant constant[2]; //plant class has 2 constants that can be changed by the user
+
         WaterPump *wp;
         LedMatrix *lm;
         WaterHumiditySensor *wh;
         AnalogButton *ab;
 
-        Vector<ConfigView> config_views;
+        int max_config_screens = 2;
+        ConfigView config_views[2];
+
         int config_numbers[2];
         int index_of_config_view = 0;
 

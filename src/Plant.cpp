@@ -40,7 +40,7 @@ void Plant::step() {
 
 void Plant::init(){
     // Serial.println("Calibrating the water Sensor");
-    set_config_views();
+    //set_config_views();
     //delay(10000);
     //wh->calibrate();
     //wp->set_power(70);
@@ -55,7 +55,12 @@ void Plant::set_display_brightness(int brightness){
 }
 
 void Plant::set_min_moisture_pct(int min_moisture_pct){
-    this->min_moisture_pct = pct_validator(min_moisture_pct);
+    min_moisture_pct = pct_validator(min_moisture_pct);
+
+    ConfigView cv("H Pc", lm);
+
+    constant[MAX_MOISTURE_IND] = Constant(cv, min_moisture_pct);
+
 }
 
 void Plant::set_max_moisture_pct(int max_moisture_pct){
@@ -73,7 +78,7 @@ void Plant::config_views_show(){
     // Serial.println("I WAS HERE 2");
     while(true){
         lm->clear();
-        button_val bv = config_views[index_of_config_view].view_function(ab, config_numbers[index_of_config_view]);
+        button_val bv = constant[index_of_config_view].cv.view_function(ab, constant[index_of_config_view].value);
         if (bv == SELECT){
             break;
         }
@@ -85,7 +90,7 @@ void Plant::config_views_show(){
 
 void Plant::set_index_of_config_view(button_val bv){
     if (bv == RIGHT){
-        if (config_views.size()-1 == index_of_config_view){
+        if (max_config_screens-1 == index_of_config_view){
             index_of_config_view = 0;
             return;
         }
@@ -93,22 +98,10 @@ void Plant::set_index_of_config_view(button_val bv){
         return;
     } else if(bv == LEFT){
         if (index_of_config_view == 0){
-            index_of_config_view = config_views.size() -1;
+            index_of_config_view = max_config_screens-1;
             return;
         }
         index_of_config_view--;
         return;
     }
-}
-
-void Plant::set_config_views(){
-    String possible_configs[] = {"H PC", "L PC"};
-    for(String possible_config : possible_configs){
-        ConfigView cv(possible_config, lm);
-        config_views.push_back(cv);
-    }
-
-    config_numbers[0] = max_moisture_pct;
-    config_numbers[1] = min_moisture_pct;
-    
 }
