@@ -69,7 +69,12 @@ class LedMatrix{
          */
         void init();
 
-        void display_char(char c);
+        /**
+         * @brief  starts a countdown timer on the display the input is seocnds and it goes from "seconds" -> 0
+         * 
+         * @param seconds 
+         */
+        void count_down_timer(int seconds);
 
     private:
         int data_in_pin;

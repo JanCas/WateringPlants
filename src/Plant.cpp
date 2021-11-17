@@ -11,31 +11,28 @@ Plant::Plant(int min_moisture_pct, int max_moisture_pct, WaterPump *wp, LedMatri
 }
 
 void Plant::step() {
-    //int water_moisture_pct = wh->pct_between_bounds(wh->read_current());
+    int water_moisture_pct = wh->pct_between_bounds(wh->read_current());
 
     button_val bv = ab->read_button();
-    // Serial.println(ab->to_string(bv));
     if (bv == SELECT){
-        // Serial.println("I was here");
         config_views_activate();
     }
 
 
     lm->clear();
-    lm->display_integer(100);
-/*
+
     lm->display_integer(water_moisture_pct);
 
-    if (water_moisture_pct < min_moisture_pct){
+    if (water_moisture_pct < constant[MIN_MOISTURE_IND].value){
         wp->turn_on();
-        while(wh->pct_between_bounds(wh->read_current()) < max_moisture_pct){
+        while(wh->pct_between_bounds(wh->read_current()) < constant[MAX_MOISTURE_IND].value){
             delay(500);
             lm->clear();
             lm->display_integer(wh->pct_between_bounds(wh->read_current()));
         }
         wp->shut_off();
     }
-    */
+    
 }
 
 void Plant::init(){
@@ -58,11 +55,10 @@ void Plant::set_min_moisture_pct(int min_moisture_pct){
     min_moisture_pct = pct_validator(min_moisture_pct);
 
     constant[MIN_MOISTURE_IND] = {"L PC", min_moisture_pct};
-
 }
 
 void Plant::set_max_moisture_pct(int max_moisture_pct){
-    this->max_moisture_pct = pct_validator(max_moisture_pct);
+    max_moisture_pct = pct_validator(max_moisture_pct);
 
     constant[MAX_MOISTURE_IND] = {"H PC", max_moisture_pct};
 }
@@ -75,19 +71,15 @@ int Plant::pct_validator(int pct){
 }
 
 button_val Plant::config_views_show(String identifier, int &number){
-        // Serial.println("I was here 3");
+
     lm->display_string(identifier);
     lm->display_integer(number);
-
-    // Serial.println(identifier);
-    // Serial.println(number);
 
     button_val ab_reading;
     delay(250);
     while(true){
 
         ab_reading = ab->read_button();
-        //Serial.println(ab->to_string(ab_reading));
 
         switch (ab_reading)
         {
@@ -106,17 +98,15 @@ button_val Plant::config_views_show(String identifier, int &number){
             return ab_reading;
         }
         lm->display_integer(number);
-        delay(250);
+        delay(100);
     }
 }
 
 void Plant::config_views_activate(){
-    // Serial.println("I WAS HERE 2");
     while(true){
         lm->clear();
         button_val bv = config_views_show(constant[index_of_config_view].identifier, constant[index_of_config_view].value);
         if (bv == SELECT){
-            delay(250);
             break;
         }
         set_index_of_config_view(bv);
@@ -126,7 +116,7 @@ void Plant::config_views_activate(){
 
 void Plant::set_index_of_config_view(button_val bv){
     if (bv == RIGHT){
-        if (max_config_screens-1 == index_of_config_view){
+        if (NUM_CONFIG_VIEWS-1 == index_of_config_view){
             index_of_config_view = 0;
             return;
         }
@@ -134,7 +124,7 @@ void Plant::set_index_of_config_view(button_val bv){
         return;
     } else if(bv == LEFT){
         if (index_of_config_view == 0){
-            index_of_config_view = max_config_screens-1;
+            index_of_config_view = NUM_CONFIG_VIEWS-1;
             return;
         }
         index_of_config_view--;

@@ -3,12 +3,12 @@
 
 #define MAX_MOISTURE_IND 0
 #define MIN_MOISTURE_IND 1
+#define NUM_CONFIG_VIEWS 2
 
 #include <Vector.h>
 #include "WaterPump.hpp"
 #include "LedMatrix.hpp"
 #include "WaterHumiditySensor.hpp"
-#include "ConfigView.hpp"
 #include "AnalogButton.hpp"
 
 typedef struct{
@@ -22,21 +22,13 @@ typedef struct{
  */
 class Plant{
     private:
-        int min_moisture_pct;
-        int max_moisture_pct;
-
         Constant constant[2]; //plant class has 2 constants that can be changed by the user
+        int index_of_config_view = 0;
 
         WaterPump *wp;
         LedMatrix *lm;
         WaterHumiditySensor *wh;
         AnalogButton *ab;
-
-        int max_config_screens = 2;
-        ConfigView config_views[2];
-
-        int config_numbers[2];
-        int index_of_config_view = 0;
 
         int pct_validator(int pct);
         void set_index_of_config_view(button_val bv);
