@@ -12,7 +12,7 @@
 #include "AnalogButton.hpp"
 
 typedef struct{
-    ConfigView cv;
+    String identifier;
     int value;
 } Constant;
 
@@ -41,7 +41,8 @@ class Plant{
         int pct_validator(int pct);
         void set_index_of_config_view(button_val bv);
         void set_config_views();
-        void config_views_show();
+        void config_views_activate();
+        button_val config_views_show(String identifier, int &number);
 
     public:
         /**

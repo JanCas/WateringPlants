@@ -11,13 +11,13 @@ Plant::Plant(int min_moisture_pct, int max_moisture_pct, WaterPump *wp, LedMatri
 }
 
 void Plant::step() {
-    int water_moisture_pct = wh->pct_between_bounds(wh->read_current());
+    //int water_moisture_pct = wh->pct_between_bounds(wh->read_current());
 
     button_val bv = ab->read_button();
     // Serial.println(ab->to_string(bv));
     if (bv == SELECT){
         // Serial.println("I was here");
-        config_views_show();
+        config_views_activate();
     }
 
 
@@ -57,14 +57,14 @@ void Plant::set_display_brightness(int brightness){
 void Plant::set_min_moisture_pct(int min_moisture_pct){
     min_moisture_pct = pct_validator(min_moisture_pct);
 
-    ConfigView cv("H Pc", lm);
-
-    constant[MAX_MOISTURE_IND] = Constant(cv, min_moisture_pct);
+    constant[MIN_MOISTURE_IND] = {"L PC", min_moisture_pct};
 
 }
 
 void Plant::set_max_moisture_pct(int max_moisture_pct){
     this->max_moisture_pct = pct_validator(max_moisture_pct);
+
+    constant[MAX_MOISTURE_IND] = {"H PC", max_moisture_pct};
 }
 
 int Plant::pct_validator(int pct){
@@ -74,16 +74,52 @@ int Plant::pct_validator(int pct){
     return pct;
 }
 
-void Plant::config_views_show(){
+button_val Plant::config_views_show(String identifier, int &number){
+        // Serial.println("I was here 3");
+    lm->display_string(identifier);
+    lm->display_integer(number);
+
+    // Serial.println(identifier);
+    // Serial.println(number);
+
+    button_val ab_reading;
+    delay(250);
+    while(true){
+
+        ab_reading = ab->read_button();
+        //Serial.println(ab->to_string(ab_reading));
+
+        switch (ab_reading)
+        {
+        case TOP:
+            number++;    
+            break;
+        
+        case BOTTOM:
+            number--;
+            break;
+        default:
+            break;
+        }
+
+        if (ab_reading == SELECT || ab_reading == RIGHT || ab_reading == LEFT){
+            return ab_reading;
+        }
+        lm->display_integer(number);
+        delay(250);
+    }
+}
+
+void Plant::config_views_activate(){
     // Serial.println("I WAS HERE 2");
     while(true){
         lm->clear();
-        button_val bv = constant[index_of_config_view].cv.view_function(ab, constant[index_of_config_view].value);
+        button_val bv = config_views_show(constant[index_of_config_view].identifier, constant[index_of_config_view].value);
         if (bv == SELECT){
+            delay(250);
             break;
         }
         set_index_of_config_view(bv);
-        lm->clear();
         delay(100);
     }
 }
