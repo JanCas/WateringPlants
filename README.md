@@ -8,7 +8,7 @@ The current defualt are:
 
 These can be changed in the config screens
 
-## MARTERIALS
+## MATERIALS
 
 The materials that were used in this project are as follows:
 - DFRobots Romeo (runs on arduino uno platform) [Romeo V1.3](https://www.dfrobot.com/product-656.html)
