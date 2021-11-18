@@ -36,11 +36,10 @@ void Plant::step() {
 }
 
 void Plant::init(){
-    // Serial.println("Calibrating the water Sensor");
-    //set_config_views();
-    //delay(10000);
-    //wh->calibrate();
-    //wp->set_power(70);
+    Serial.println("Calibrating the water Sensor"); 
+    delay(10000);
+    wh->init();
+    wp->set_power(70);
 }
 
 void Plant::set_motor_power(int power){

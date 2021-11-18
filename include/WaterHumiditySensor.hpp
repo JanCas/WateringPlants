@@ -1,7 +1,10 @@
 #ifndef WATERHUMIDITYSENSOR_H_
 #define WATERHUMIDITYSENSOR_H_
 #include "LedMatrix.hpp"
+#include <EEPROM.h>
 
+#define EEPROM_WATER_ADDR 0
+#define EEPROM_AIR_ADDR 1
 
 /**
  * @brief 
@@ -14,6 +17,7 @@ class WaterHumiditySensor{
         void calibrate();
         unsigned int read_current();
         float pct_between_bounds(int val);
+        void init();
     private:
         int water_moisture;
         int air_moisture;

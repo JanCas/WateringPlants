@@ -29,12 +29,12 @@ void WaterHumiditySensor::calibrate() {
         delay(1000);
     }
 
-    // // Serial.println("Please insert the Sensor into water");
-    // Serial.println("30 seonds until the next reading begins");
+    Serial.println("Please insert the Sensor into water");
+    Serial.println("30 seonds until the next reading begins");
     delay(30000);
 
     // take 20 readings 1 second apart to find the humidity of water
-    // Serial.println("reading from water");
+    Serial.println("reading from water");
     for (int i = 0; i < 20; i++)
     {
         int currentReading = read_current();
@@ -47,10 +47,10 @@ void WaterHumiditySensor::calibrate() {
     // calibrate the sensor
     calibrate(water_moisture, air_moisture);
 
-    // Serial.print("Calibration done values are -> Air Moisture: ");
-    // Serial.print(this->air_moisture);
-    // Serial.print(" - Water Moisture: ");
-    // Serial.println(this->water_moisture);
+    Serial.print("Calibration done values are -> Air Moisture: ");
+    Serial.print(this->air_moisture);
+    Serial.print(" - Water Moisture: ");
+    Serial.println(this->water_moisture);
 }
 
 float WaterHumiditySensor::pct_between_bounds(int val){
@@ -63,4 +63,17 @@ float WaterHumiditySensor::pct_between_bounds(int val){
 
 unsigned int WaterHumiditySensor::read_current(){
     return analogRead(pin_number);
+}
+
+void WaterHumiditySensor::init(){
+    int air_moisture = -1;
+    int water_moisture = -1;
+    water_moisture = EEPROM.read(EEPROM_WATER_ADDR);
+    air_moisture = EEPROM.read(EEPROM_AIR_ADDR);
+
+    if (water_moisture != -1 && air_moisture != -1){ // sensor has already been calibrated reading calibration values from EEROM
+        calibrate(water_moisture*4, air_moisture*4);
+    }else{
+        calibrate();
+    }
 }

@@ -30,11 +30,11 @@ void setup() {
   Serial.begin(9600);
   plant.init();
   //lm.count_down_timer(100);
-  
-  //Serial.println("Insert the Sensor into the Plant -> starting readings and water in one minure");
-  //delay(60000);
-  //plant.set_display_brightness(15);
-  //Serial.println("Wait over");
+
+  Serial.println("Insert the Sensor into the Plant -> starting readings and water in one minure");
+  delay(60000);
+  plant.set_display_brightness(15);
+  Serial.println("Wait over");
 
 }
 
@@ -42,5 +42,5 @@ void setup() {
 void loop() {
   // put your main code here, to run repeatedly:
   plant.step();
-  delay(500);
+  delay(100);
 }
