@@ -5,6 +5,7 @@
 #include "WaterPump.hpp"
 #include "Plant.hpp"
 #include "avr8-stub.h"
+#include "EEPROM_util.h"
 
 const uint8_t DATA_IN_PIN = 12;
 const uint8_t CLK_PIN = 11;
@@ -28,19 +29,23 @@ void setup() {
   // put your setup code here, to run once:
   //debug_init();
   Serial.begin(9600);
-  plant.init();
+  clear();
+  Serial.println("Done");
+  // plant.init();
   //lm.count_down_timer(100);
-
-  Serial.println("Insert the Sensor into the Plant -> starting readings and water in one minure");
-  delay(60000);
-  plant.set_display_brightness(15);
-  Serial.println("Wait over");
+  // EEPROM.write(0,-1);
+  // EEPROM.write(1,-1);
+  // Serial.println("Done");
+  //Serial.println("Insert the Sensor into the Plant -> starting readings and water in one minure");
+  //delay(60000);
+  //plant.set_display_brightness(15);
+  //Serial.println("Wait over");
 
 }
 
 
 void loop() {
   // put your main code here, to run repeatedly:
-  plant.step();
-  delay(100);
+  // plant.step();
+  // delay(100);
 }

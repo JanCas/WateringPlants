@@ -74,7 +74,7 @@ void LedMatrix::init(){
 void LedMatrix::count_down_timer(int seconds){
     for (int i = seconds; i > seconds; i--)
     {
-        Serial.println(i);
+        // Serial.println(i);
         display_integer(i);
         delay(1000);
     }

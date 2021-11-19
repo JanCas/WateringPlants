@@ -16,7 +16,7 @@ void WaterHumiditySensor::calibrate() {
     unsigned int water_moisture = __INT_MAX__;
     unsigned int air_moisture = 0;
 
-    // Serial.println("Leave the sensor in the air will be taking reading for the next 20 seconds");
+    Serial.println("Leave the sensor in the air will be taking reading for the next 20 seconds");
 
 
     // take 20 readings 1 second apart to find the humidity of the surrounding air
@@ -47,6 +47,9 @@ void WaterHumiditySensor::calibrate() {
     // calibrate the sensor
     calibrate(water_moisture, air_moisture);
 
+    EEPROM.update(AIR_IND, air_moisture);
+    EEPROM.update(WATER_IND, water_moisture);
+
     Serial.print("Calibration done values are -> Air Moisture: ");
     Serial.print(this->air_moisture);
     Serial.print(" - Water Moisture: ");
@@ -68,10 +71,15 @@ unsigned int WaterHumiditySensor::read_current(){
 void WaterHumiditySensor::init(){
     int air_moisture = -1;
     int water_moisture = -1;
-    water_moisture = EEPROM.read(EEPROM_WATER_ADDR);
-    air_moisture = EEPROM.read(EEPROM_AIR_ADDR);
+    water_moisture = EEPROM.read(WATER_IND);
+    air_moisture = EEPROM.read(AIR_IND);
 
-    if (water_moisture != -1 && air_moisture != -1){ // sensor has already been calibrated reading calibration values from EEROM
+    if (water_moisture != CLEAR_VAL && air_moisture != CLEAR_VAL){ // sensor has already been calibrated reading calibration values from EEROM
+        Serial.println("Sensor has already been calibrated");
+        Serial.print("values are -> Air Moisture: ");
+        Serial.print(air_moisture);
+        Serial.print(" - Water Moisture: ");
+        Serial.println(water_moisture);
         calibrate(water_moisture*4, air_moisture*4);
     }else{
         calibrate();

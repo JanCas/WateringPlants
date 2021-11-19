@@ -1,0 +1,12 @@
+#ifndef ED39D410_B18C_4591_A78A_C264AF53CB4C
+#define ED39D410_B18C_4591_A78A_C264AF53CB4C
+
+#include <EEPROM.h>
+
+#define CLEAR_VAL 0xff
+#define AIR_IND 0
+#define WATER_IND 1
+
+void clear();
+
+#endif /* ED39D410_B18C_4591_A78A_C264AF53CB4C */
